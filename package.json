@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node indexer.mjs"
+    "start": "node --experimental-specifier-resolution=node indexer.mjs"
   },
   "keywords": [],
   "author": "",
