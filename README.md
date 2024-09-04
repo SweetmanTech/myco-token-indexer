@@ -1,4 +1,4 @@
-# Base Indexer
+# Myco Token Indexer
 
 This project is a Node.js-based indexer for blockchain events, supporting both Base & Base Sepolia networks.
 
