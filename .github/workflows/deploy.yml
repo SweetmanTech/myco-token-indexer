@@ -18,7 +18,7 @@ jobs:
           node-version: "14"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Run tests
         run: npm test
@@ -32,5 +32,5 @@ jobs:
           script: |
             cd /path/to/your/app
             git pull origin main
-            npm ci
+            npm install
             pm2 restart myco-token-indexer
