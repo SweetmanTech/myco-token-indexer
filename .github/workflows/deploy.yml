@@ -27,14 +27,14 @@ jobs:
         run: |
           echo "DROPLET_IP is set: ${{ secrets.DROPLET_IP != '' }}"
           echo "DROPLET_USER is set: ${{ secrets.DROPLET_USER != '' }}"
-          echo "DROPLET_SSH_KEY is set: ${{ secrets.DROPLET_SSH_KEY != '' }}"
+          echo "DROPLET_PASSWORD is set: ${{ secrets.DROPLET_PASSWORD != '' }}"
 
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DROPLET_IP }}
           username: ${{ secrets.DROPLET_USER }}
-          key: ${{ secrets.DROPLET_SSH_KEY }}
+          password: ${{ secrets.DROPLET_PASSWORD }}
           script: |
             echo "Connected to Droplet"
             cd /path/to/your/app
