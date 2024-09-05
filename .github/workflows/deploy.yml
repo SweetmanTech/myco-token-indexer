@@ -67,6 +67,12 @@ jobs:
             echo "Updating indexer.mjs"
             sed -i 's/from ".\/lib\/indexEventsForNetwork"/from ".\/lib\/indexEventsForNetwork.js"/' ~/myco-token-indexer/indexer.mjs
 
+            # Update import paths in lib files
+            sed -i 's/from "\.\//from "\.\//' ~/myco-token-indexer/lib/*.js
+            sed -i 's/from "\.\//from "\.\//' ~/myco-token-indexer/lib/stack/*.js
+            sed -i 's/"\)/"\.js")/' ~/myco-token-indexer/lib/*.js
+            sed -i 's/"\)/"\.js")/' ~/myco-token-indexer/lib/stack/*.js
+
             # Debug: Show updated contents of indexer.mjs
             echo "Updated contents of ~/myco-token-indexer/indexer.mjs:"
             cat ~/myco-token-indexer/indexer.mjs
