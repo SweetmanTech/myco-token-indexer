@@ -37,7 +37,26 @@ jobs:
           password: ${{ secrets.DROPLET_PASSWORD }}
           script: |
             echo "Connected to Droplet"
-            cd /path/to/your/app
-            git pull origin main
+            # Create app directory if it doesn't exist
+            mkdir -p ~/myco-token-indexer
+            cd ~/myco-token-indexer
+
+            # Initialize git repository if it doesn't exist
+            if [ ! -d .git ]; then
+              git init
+              git remote add origin https://github.com/SweetmanTech/myco-token-indexer.git
+            fi
+
+            # Fetch latest code
+            git fetch --all
+            git reset --hard origin/main
+
+            # Install dependencies
             npm install
-            pm2 restart myco-token-indexer
+
+            # Start or restart the app using PM2
+            if pm2 list | grep -q "myco-token-indexer"; then
+              pm2 restart myco-token-indexer
+            else
+              pm2 start npm --name "myco-token-indexer" -- start
+            fi
