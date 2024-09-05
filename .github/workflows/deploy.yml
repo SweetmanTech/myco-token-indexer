@@ -58,9 +58,16 @@ jobs:
             echo "Contents of ~/myco-token-indexer/lib:"
             ls -l ~/myco-token-indexer/lib
 
+            # Debug: Show contents of indexer.mjs
+            echo "Contents of ~/myco-token-indexer/indexer.mjs:"
+            cat ~/myco-token-indexer/indexer.mjs
+
+            # Debug: Show Node.js version
+            node --version
+
             # Start or restart the app using PM2
             if pm2 list | grep -q "myco-token-indexer"; then
               pm2 restart myco-token-indexer --update-env --cwd ~/myco-token-indexer
             else
-              pm2 start npm --name "myco-token-indexer" --cwd ~/myco-token-indexer -- start
+              pm2 start npm --name "myco-token-indexer" --cwd ~/myco-token-indexer -- run start
             fi
