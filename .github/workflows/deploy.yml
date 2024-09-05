@@ -23,6 +23,12 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Debug Secrets
+        run: |
+          echo "DROPLET_IP is set: ${{ secrets.DROPLET_IP != '' }}"
+          echo "DROPLET_USER is set: ${{ secrets.DROPLET_USER != '' }}"
+          echo "DROPLET_SSH_KEY is set: ${{ secrets.DROPLET_SSH_KEY != '' }}"
+
       - name: Deploy to DigitalOcean Droplet
         uses: appleboy/ssh-action@master
         with:
@@ -30,6 +36,7 @@ jobs:
           username: ${{ secrets.DROPLET_USER }}
           key: ${{ secrets.DROPLET_SSH_KEY }}
           script: |
+            echo "Connected to Droplet"
             cd /path/to/your/app
             git pull origin main
             npm install
