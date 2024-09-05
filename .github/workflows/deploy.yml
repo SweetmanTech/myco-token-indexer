@@ -54,6 +54,10 @@ jobs:
             # Install dependencies
             npm install
 
+            # Debug: List contents of the lib directory
+            echo "Contents of ~/myco-token-indexer/lib:"
+            ls -l ~/myco-token-indexer/lib
+
             # Start or restart the app using PM2
             if pm2 list | grep -q "myco-token-indexer"; then
               pm2 restart myco-token-indexer --update-env --cwd ~/myco-token-indexer
