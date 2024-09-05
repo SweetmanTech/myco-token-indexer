@@ -56,7 +56,7 @@ jobs:
 
             # Start or restart the app using PM2
             if pm2 list | grep -q "myco-token-indexer"; then
-              pm2 restart myco-token-indexer
+              pm2 restart myco-token-indexer --update-env
             else
-              pm2 start npm --name "myco-token-indexer" -- run start
+              pm2 start "node --experimental-specifier-resolution=node indexer.mjs" --name "myco-token-indexer"
             fi
