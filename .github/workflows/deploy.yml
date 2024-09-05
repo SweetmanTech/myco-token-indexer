@@ -58,5 +58,5 @@ jobs:
             if pm2 list | grep -q "myco-token-indexer"; then
               pm2 restart myco-token-indexer
             else
-              pm2 start npm --name "myco-token-indexer" -- start
+              pm2 start npm --name "myco-token-indexer" -- run start
             fi
