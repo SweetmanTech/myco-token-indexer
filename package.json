@@ -12,7 +12,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zoralabs/protocol-deployments": "^0.3.2",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "node-fetch": "^2.7.0",
