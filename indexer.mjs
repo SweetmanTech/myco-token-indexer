@@ -1,4 +1,4 @@
-import indexEventsForNetwork from "./lib/indexEventsForNetwork";
+import indexEventsForNetwork from "./lib/indexEventsForNetwork.js";
 
 async function indexBothNetworks() {
   await Promise.all([
