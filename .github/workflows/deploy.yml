@@ -47,15 +47,21 @@ jobs:
               git remote add origin https://github.com/SweetmanTech/myco-token-indexer.git
             fi
 
-            # Fetch latest code
+            # Fetch latest code and handle local changes
             git fetch --all
+            git stash
             git checkout -B sweets/ci-cd origin/sweets/ci-cd
             git reset --hard origin/sweets/ci-cd
+            git stash pop || true  # Apply stashed changes if any, ignore if fails
 
             echo "Current branch:"
             git branch --show-current
             echo "Git status:"
             git status
+
+            # Ensure correct Node.js version
+            source ~/.nvm/nvm.sh
+            nvm use 20
 
             # Install dependencies
             npm install
