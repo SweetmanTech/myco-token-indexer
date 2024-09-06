@@ -78,12 +78,20 @@ jobs:
             echo "Updating indexer.mjs"
             sed -i 's/from "\(\.\/lib\/[^"]*\)"/from "\1.js"/' ~/myco-token-indexer/indexer.mjs
 
-            # Update import paths in lib files
-            find ~/myco-token-indexer/lib -name "*.js" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
-            find ~/myco-token-indexer/lib/stack -name "*.js" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
+            # Update import paths
+            echo "Updating import paths"
+            find ~/myco-token-indexer -name "*.js" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
+            find ~/myco-token-indexer -name "*.mjs" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
 
             # Remove duplicate .js extensions
             find ~/myco-token-indexer -name "*.js" -type f -exec sed -i 's/\.js\.js/.js/g' {} +
+            find ~/myco-token-indexer -name "*.mjs" -type f -exec sed -i 's/\.js\.js/.js/g' {} +
+
+            # Ensure .js extension is not added to node built-in modules or third-party packages
+            find ~/myco-token-indexer -name "*.js" -type f -exec sed -i 's/from "\(node:[^"]*\)\.js"/from "\1"/' {} +
+            find ~/myco-token-indexer -name "*.mjs" -type f -exec sed -i 's/from "\(node:[^"]*\)\.js"/from "\1"/' {} +
+            find ~/myco-token-indexer -name "*.js" -type f -exec sed -i 's/from "\([^./][^"]*\)\.js"/from "\1"/' {} +
+            find ~/myco-token-indexer -name "*.mjs" -type f -exec sed -i 's/from "\([^./][^"]*\)\.js"/from "\1"/' {} +
 
             # Debug: Show updated contents of indexer.mjs
             echo "Updated contents of ~/myco-token-indexer/indexer.mjs:"
