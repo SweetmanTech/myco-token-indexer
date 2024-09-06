@@ -76,11 +76,14 @@ jobs:
 
             # Update indexer.mjs
             echo "Updating indexer.mjs"
-            sed -i 's/from ".\/lib\/indexEventsForNetwork"/from ".\/lib\/indexEventsForNetwork.js"/' ~/myco-token-indexer/indexer.mjs
+            sed -i 's/from "\(\.\/lib\/[^"]*\)"/from "\1.js"/' ~/myco-token-indexer/indexer.mjs
 
             # Update import paths in lib files
             find ~/myco-token-indexer/lib -name "*.js" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
             find ~/myco-token-indexer/lib/stack -name "*.js" -type f -exec sed -i 's/from "\([^"]*\)"/from "\1.js"/' {} +
+
+            # Remove duplicate .js extensions
+            find ~/myco-token-indexer -name "*.js" -type f -exec sed -i 's/\.js\.js/.js/g' {} +
 
             # Debug: Show updated contents of indexer.mjs
             echo "Updated contents of ~/myco-token-indexer/indexer.mjs:"
