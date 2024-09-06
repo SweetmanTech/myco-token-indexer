@@ -3,7 +3,7 @@ name: Deploy to DigitalOcean Droplet
 on:
   push:
     branches:
-      - "sweets/ci-cd"
+      - "**" # This will trigger the workflow on push to any branch
 
 jobs:
   deploy:
@@ -49,10 +49,9 @@ jobs:
 
             # Fetch latest code and handle local changes
             git fetch --all
-            git stash
-            git checkout -B sweets/ci-cd origin/sweets/ci-cd
+            git checkout -B ${{ github.ref_name }} origin/${{ github.ref_name }}
             git reset HEAD --hard
-            git pull origin sweets/ci-cd
+            git pull origin/${{ github.ref_name }}
 
             echo "Current branch:"
             git branch --show-current
@@ -65,21 +64,6 @@ jobs:
 
             # Install dependencies
             npm install
-
-            # Debug: List contents of the lib directory
-            echo "Contents of ~/myco-token-indexer/lib:"
-            ls -l ~/myco-token-indexer/lib
-
-            # Debug: Show contents of indexer.mjs
-            echo "Contents of ~/myco-token-indexer/indexer.mjs:"
-            cat ~/myco-token-indexer/indexer.mjs
-
-            # Debug: Show updated contents of indexer.mjs
-            echo "Updated contents of ~/myco-token-indexer/indexer.mjs:"
-            cat ~/myco-token-indexer/indexer.mjs
-
-            # Debug: Show Node.js version
-            node --version
 
             # Start or restart the app using PM2
             if pm2 list | grep -q "myco-token-indexer"; then
