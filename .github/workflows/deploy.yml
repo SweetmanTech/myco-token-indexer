@@ -51,8 +51,8 @@ jobs:
             git fetch --all
             git stash
             git checkout -B sweets/ci-cd origin/sweets/ci-cd
-            git reset --hard origin/sweets/ci-cd
-            git stash pop || true  # Apply stashed changes if any, ignore if fails
+            git reset HEAD --hard
+            git pull origin sweets/ci-cd
 
             echo "Current branch:"
             git branch --show-current
