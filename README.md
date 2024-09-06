@@ -1,6 +1,19 @@
-# Myco Token Indexer
+# Myco Token Indexer for Zora on Base
 
-This project is a Node.js-based indexer for blockchain events, supporting both Base & Base Sepolia networks.
+This project is a Node.js-based indexer for Zora protocol events on Base & Base Sepolia networks, designed to help developers building applications on Zora.
+
+## Benefits for Zora Developers
+
+This indexer provides several advantages for developers building applications on Zora:
+
+1. **Stack.so Integration**: Automatically tracks events with Stack.so, enabling easy analytics and user engagement features.
+2. **Real-time Event Tracking**: Automatically indexes and tracks Zora protocol events on Base networks.
+3. **Customizable**: Can be easily modified to focus on specific Zora events or contracts of interest.
+4. **Network Flexibility**: Supports both Base mainnet and Base Sepolia testnet.
+5. **Efficient Data Processing**: Uses chunked requests and multiple RPC endpoints for reliable data fetching.
+6. **Easy Integration**: Simplifies the process of accessing historical and real-time Zora event data.
+
+By using this indexer, developers can focus on building their Zora applications without worrying about the complexities of event indexing and data management.
 
 ## Prerequisites
 
