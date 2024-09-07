@@ -60,10 +60,21 @@ To run the indexer:
 
 5. The indexed data will be stored according to the implementation in `indexEventsForNetwork.js`.
 
+## Event Indexed
+
+This indexer specifically tracks the `UpdatedPermissions` event from the Zora Creator 1155 contract. This event is emitted when permissions are updated for a user on a specific token. It includes the following information:
+
+- `tokenId`: The ID of the token for which permissions are being updated.
+- `user`: The address of the user whose permissions are being updated.
+- `permissions`: The new permissions value for the user.
+
+By tracking this event, the indexer provides valuable data about permission changes within Zora collections, which can be useful for building a profile for creators.
+
 ## Customization
 
-- To index different events or contracts, modify the `indexEventsForNetwork.js` file in the `lib` directory.
+- To index different events or contracts, modify the `getEventSignature.js` file in the `lib/viem` directory to change the event being tracked.
 - Adjust RPC endpoints in `lib/rpc.js` if needed.
+- To modify how event data is processed or stored, update the `getEventPayload.js` file in the `lib/stack` directory.
 
 ## Troubleshooting
 
