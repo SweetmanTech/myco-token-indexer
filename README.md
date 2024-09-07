@@ -62,8 +62,9 @@ To run the indexer:
 
 ## Customization
 
-- To index different events or contracts, modify the `indexEventsForNetwork.js` file in the `lib` directory.
+- To index different events or contracts, modify the `getEventSignature.js` file in the `lib/viem` directory to change the event being tracked.
 - Adjust RPC endpoints in `lib/rpc.js` if needed.
+- To modify how event data is processed or stored, update the `getEventPayload.js` file in the `lib/stack` directory.
 
 ## Troubleshooting
 
