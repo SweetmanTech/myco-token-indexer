@@ -4,6 +4,8 @@ async function indexBothNetworks() {
   await Promise.all([
     indexEventsForNetwork("sepolia"),
     indexEventsForNetwork("mainnet"),
+    indexEventsForNetwork("zora"),
+    indexEventsForNetwork("zoraSepolia")
   ]);
 }
 
