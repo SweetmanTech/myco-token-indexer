@@ -1,12 +1,8 @@
 import indexEventsForNetwork from "./lib/indexEventsForNetwork.js";
+import { NETWORKS } from "./lib/rpc.js";
 
-async function indexBothNetworks() {
-  await Promise.all([
-    indexEventsForNetwork("baseSepolia"),
-    indexEventsForNetwork("base"),
-    indexEventsForNetwork("zora"),
-    indexEventsForNetwork("zoraSepolia")
-  ]);
+async function indexAllNetworks() {
+  await Promise.all(Object.values(NETWORKS).map(indexEventsForNetwork));
 }
 
-indexBothNetworks().catch(console.error);
+indexAllNetworks().catch(console.error);
