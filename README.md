@@ -76,13 +76,91 @@ By tracking this event, the indexer provides valuable data about permission chan
 - Adjust RPC endpoints in `lib/rpc.js` if needed.
 - To modify how event data is processed or stored, update the `getEventPayload.js` file in the `lib/stack` directory.
 
+## Deployment
+
+This project is set up for automatic deployment to a DigitalOcean Droplet using GitHub Actions. Here's how to set up your own droplet for deployment:
+
+1. **Create a DigitalOcean Droplet**:
+
+   - Sign up for a DigitalOcean account if you haven't already.
+   - Create a new Droplet, choosing Ubuntu as the operating system.
+   - Select a plan that suits your needs (Basic plan is often sufficient for starting).
+   - Choose a datacenter region close to your target audience.
+   - Add your SSH key for secure access.
+
+2. **Initial Droplet Setup**:
+
+   - SSH into your new Droplet: `ssh root@your_droplet_ip`
+   - Update the system:
+     ```
+     sudo apt update
+     sudo apt upgrade -y
+     ```
+   - Install Node.js and npm:
+     ```
+     curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+     sudo apt-get install -y nodejs
+     ```
+   - Install PM2 globally: `sudo npm install -g pm2`
+
+3. **Configure GitHub Secrets**:
+   In your GitHub repository, go to Settings > Secrets and add the following:
+
+   - `DROPLET_IP`: Your DigitalOcean Droplet's IP address
+   - `DROPLET_USER`: The username for SSH access (usually 'root')
+   - `DROPLET_PASSWORD`: Your Droplet's root password or SSH key passphrase
+
+4. **Prepare the Droplet for Deployment**:
+
+   - Create the project directory: `mkdir -p ~/myco-token-indexer`
+   - Set up Node.js version management (optional but recommended):
+     ```
+     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+     source ~/.bashrc
+     nvm install 20
+     nvm use 20
+     ```
+
+5. **Configure Environment Variables**:
+
+   - Create a `.env` file in the project directory on your Droplet:
+     ```
+     nano ~/myco-token-indexer/.env
+     ```
+   - Add necessary environment variables (e.g., `STACK_API_KEY`, `BASE_SEPOLIA_FIRST_BLOCK`, etc.)
+   - Save the file by pressing `Ctrl + X`, then `Y`, and finally `Enter`.
+
+6. **Update GitHub Workflow**:
+   Ensure your `.github/workflows/deploy.yml` file is correctly set up. It should include steps to:
+
+   - Check out the code
+   - Set up Node.js
+   - Install dependencies
+   - Run tests
+   - Deploy to the DigitalOcean Droplet
+
+7. **Trigger Deployment**:
+
+   - Push changes to your GitHub repository.
+   - The GitHub Action will automatically deploy your project to the Droplet.
+
+8. **Verify Deployment**:
+   - SSH into your Droplet and check if the process is running:
+     ```
+     pm2 list
+     ```
+   - You should see `myco-token-indexer` in the list of processes.
+
+With these steps, your project should be automatically deployed to your DigitalOcean Droplet whenever you push changes to your GitHub repository.
+
 ## Troubleshooting
 
-If you encounter any issues:
+If you encounter any issues during deployment:
 
-1. Ensure all dependencies are correctly installed.
-2. Check that your `.env` file is properly configured.
-3. Verify that you have a stable internet connection for RPC calls.
+1. Check the GitHub Actions logs for any error messages.
+2. Ensure all secrets are correctly set in your GitHub repository.
+3. Verify that your Droplet has sufficient resources (CPU, RAM, disk space).
+4. Check the PM2 logs on your Droplet: `pm2 logs myco-token-indexer`
 
 For more detailed logs, you can modify the logging level in the indexer code.
 

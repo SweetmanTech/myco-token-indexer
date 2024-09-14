@@ -3,7 +3,8 @@ name: Deploy to DigitalOcean Droplet
 on:
   push:
     branches:
-      - "**" # This will trigger the workflow on push to any branch
+      - main
+      - test
 
 jobs:
   deploy:
