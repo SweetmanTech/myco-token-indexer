@@ -128,6 +128,7 @@ This project is set up for automatic deployment to a DigitalOcean Droplet using 
      nano ~/myco-token-indexer/.env
      ```
    - Add necessary environment variables (e.g., `STACK_API_KEY`, `BASE_SEPOLIA_FIRST_BLOCK`, etc.)
+   - Save the file by pressing `Ctrl + X`, then `Y`, and finally `Enter`.
 
 6. **Update GitHub Workflow**:
    Ensure your `.github/workflows/deploy.yml` file is correctly set up. It should include steps to:
