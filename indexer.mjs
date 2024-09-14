@@ -2,8 +2,10 @@ import indexEventsForNetwork from "./lib/indexEventsForNetwork.js";
 
 async function indexBothNetworks() {
   await Promise.all([
-    indexEventsForNetwork("sepolia"),
-    indexEventsForNetwork("mainnet"),
+    indexEventsForNetwork("baseSepolia"),
+    indexEventsForNetwork("base"),
+    indexEventsForNetwork("zora"),
+    indexEventsForNetwork("zoraSepolia")
   ]);
 }
 
